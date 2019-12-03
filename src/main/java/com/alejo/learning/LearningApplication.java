@@ -13,32 +13,4 @@ public class LearningApplication {
 		SpringApplication.run(LearningApplication.class, args);
 	}
 
-	@RestController
-	class Resource {
-		@RequestMapping(
-			method = RequestMethod.GET
-		)
-		Message getMessage() {
-			return new Message("Hello Worlds");
-		}
-	}
-
-	class Message {
-		private final String messasge;
-
-		public Message(String messasge) {
-			this.messasge = messasge;
-		}
-
-		public String getMessasge() {
-			return messasge;
-		}
-
-		@Override
-		public String toString() {
-			return "Message{" +
-					"messasge='" + messasge + '\'' +
-					'}';
-		}
-	}
 }
