@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,22 +21,32 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return null;
+        return myUserDao.selectAllUsers();
     }
 
-    public User getUser(UUID userUid) {
-        return null;
+    public Optional<User> getUser(UUID userUid) {
+        return myUserDao.selectUserByUserUid(userUid);
     }
 
     public int updateUser(User user) {
-        return 1;
+        Optional<User> optionalUser = getUser(user.getUserUid());
+        if(optionalUser.isPresent()){
+            myUserDao.updateUser(user);
+            return 1;
+        }
+        return -1;
     }
 
     public int removeUser(UUID userUid) {
-        return 1;
+        Optional<User> optionalUser = getUser(userUid);
+        if(optionalUser.isPresent()){
+            myUserDao.deleteUser(userUid);
+            return 1;
+        }
+        return -1;
     }
 
     public int insertUser(UUID userUid,  User user) {
-        return 1;
+        return myUserDao.insertUser(UUID.randomUUID(), user);
     }
 }
